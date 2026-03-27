@@ -1,78 +1,20 @@
 <!DOCTYPE html>
 <html lang="id">
-<head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Data dan Catatan Aktivitas</title>
+<title>MyWebsite App</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 
 body{
 background:#0f172a;
 color:white;
 overflow-x:hidden;
-}
-
-/* NAVBAR */
-.navbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px;
-background:#020617;
-flex-wrap:wrap;
-position:relative;
-overflow:hidden;
-}
-
-/* NEON BORDER */
-.navbar::before{
-content:"";
-position:absolute;
-inset:-2px;
-background:linear-gradient(90deg,rgb(232, 5, 141),#03eef2);
-background-size:300%;
-animation:neonBorder 8s linear infinite;
-filter:blur(6px);
-z-index:0;
-}
-
-.navbar>*{
-position:relative;
-z-index:1;
-}
-
-/* MENU */
-.menu-wrapper{
-border:2px solid cyan;
-padding:5px;
-border-radius:8px;
-}
-
-.menu{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-}
-
-.menu a{
-padding:8px 12px;
-border:1px solid cyan;
-border-radius:6px;
-color:white;
-text-decoration:none;
-font-size:14px;
-}
-
-.menu a:hover{
-background:#38bdf8;
-color:black;
+padding-bottom:70px;
 }
 
 /* MARQUEE */
@@ -95,69 +37,39 @@ animation:jalan 25s linear infinite;
 100%{transform:translateX(-100%);}
 }
 
-/* LAYOUT */
-.container{
-display:flex;
-flex-wrap:wrap;
-}
-
-/* SIDEBAR */
-.sidebar-wrapper{
-width:260px;
-padding:10px;
-}
-
-.sidebar{
-display:flex;
-flex-direction:column;
-gap:10px;
-background:#0b1a2a;
-padding:10px;
-border-radius:12px;
-position:relative;
-overflow:hidden;
-}
-
-.sidebar::before{
-content:"";
-position:absolute;
-inset:-3px;
-background:linear-gradient(90deg,cyan,blue,rgb(6, 217, 245),cyan);
-background-size:300%;
-animation:neonKeliling 6s linear infinite;
-filter:blur(8px);
-z-index:0;
-}
-
-.sidebar::after{
-content:"";
-position:absolute;
-inset:0;
-background:#0b1a2a;
-border-radius:12px;
-z-index:0;
-}
-
-.sidebar *{
-position:relative;
-z-index:1;
-}
-
 /* CONTENT */
-.content{
-flex:1;
-padding:15px;
-min-width:0;
+.content{padding:15px;}
+
+/* LOGO */
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+margin-bottom:10px;
+}
+
+.logo img{
+width:40px;
+height:40px;
+border-radius:50%;
+box-shadow:0 0 10px cyan;
+animation:putar 6s linear infinite;
+}
+
+@keyframes putar{
+from{transform:rotate(0);}
+to{transform:rotate(360deg);}
 }
 
 /* GRID */
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:15px;
+grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+gap:12px;
+animation:fadeSlide .4s ease;
 }
 
-/* CARD NEON */
+/* CARD */
 .card-neon{
 background:#0d0e0d;
 padding:15px;
@@ -184,212 +96,147 @@ overflow:hidden;
 .slider img{
 width:100%;
 display:none;
-border-radius:12px;
 }
 
 .slider img.active{
 display:block;
 }
 
-/* TITLE */
-.title-box{
-display:block;
-width:100%;
-max-width:100%;
-text-align:center;
-padding:10px;
-margin-bottom:15px;
-border-radius:10px;
-background:rgba(0,20,40,.7);
-box-shadow:0 0 15px rgba(255,255,255,.2);
+/* ANIMASI */
+@keyframes fadeSlide{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
 }
 
-.title-box h2{
-color:#06e1f1;
+/* BOTTOM NAV */
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+height:65px;
+background:#020617;
+display:flex;
+justify-content:space-around;
+align-items:center;
+z-index:999;
+border-top:1px solid rgba(0,255,255,0.3);
+}
+
+.nav-item{
+flex:1;
+text-align:center;
+color:#94a3b8;
+font-size:12px;
+cursor:pointer;
+position:relative;
+}
+
+.nav-item i{
+font-size:18px;
+display:block;
+margin-bottom:2px;
+transition:.3s;
+}
+
+.nav-item.active{
+color:#22d3ee;
+}
+
+.nav-item.active i{
+transform:translateY(-5px) scale(1.2);
+text-shadow:0 0 10px cyan;
+}
+
+/* RIPPLE */
+.nav-item::after{
+content:"";
+position:absolute;
+width:10px;
+height:10px;
+background:rgba(0,255,255,0.5);
+border-radius:50%;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) scale(0);
+}
+
+.nav-item:active::after{
+animation:ripple .5s linear;
+}
+
+@keyframes ripple{
+0%{transform:translate(-50%,-50%) scale(0);opacity:1;}
+100%{transform:translate(-50%,-50%) scale(6);opacity:0;}
+}
+
+/* CONTAINER */
+.title-job-pro{
+display:flex;
+align-items:center;
+gap:12px;
+font-size:20px;
+position:relative;
+padding:10px 15px;
+border-radius:12px;
+overflow:hidden;
+background:rgba(0,20,40,0.5);
+backdrop-filter:blur(8px);
+}
+
+/* ICON BOX */
+.icon-box{
+width:40px;
+height:40px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+background:linear-gradient(135deg,#06e1f1,#3b82f6);
+box-shadow:0 0 10px cyan,0 0 20px cyan;
+animation:pulse 2s infinite;
+}
+
+.icon-box i{
+color:white;
 font-size:18px;
 }
 
-/* ANIMATION */
-@keyframes neonBorder{
-0%{background-position:0%;}
-100%{background-position:300%;}
+/* TEXT */
+.title-job-pro .text{
+color:#22d3ee;
+font-weight:bold;
+letter-spacing:1px;
+text-shadow:0 0 10px cyan;
 }
 
-@keyframes neonKeliling{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
-}
-
-/* 🔥 MOBILE MODE */
-@media(max-width:768px){
-
-.navbar{
-flex-direction:column;
-align-items:flex-start;
-gap:10px;
-}
-
-.container{
-flex-direction:column;
-}
-
-.sidebar-wrapper{
-width:100%;
-}
-
-.menu{
-justify-content:center;
-}
-
-.title-box h2{
-font-size:16px;
-}
-
-}
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-/* LOGO GAMBAR */
-.logo img {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-    border-radius: 50%;
-
-    /* 🔥 efek neon */
-    box-shadow:
-        0 0 10px cyan,
-        0 0 20px cyan,
-        0 0 40px cyan;
-}
-
-/* TEKS */
-.logo span {
-    font-size: 18px;
-    font-weight: bold;
-    color: white;
-}
-.logo img {
-    animation: putar 6s linear infinite;
-}
-
-@keyframes putar {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-/* TOGGLE MENU */
-.menu-toggle{
-display:none;
-font-size:22px;
-cursor:pointer;
-color:white;
-}
-
-/* MOBILE MENU */
-@media(max-width:768px){
-
-.menu-toggle{
-display:block;
-}
-
-.menu-wrapper{
-width:100%;
-display:none;
-}
-
-.menu-wrapper.active{
-display:block;
-animation:fadeIn .3s ease;
-}
-
-.menu{
-flex-direction:column;
-width:100%;
-}
-
-.menu a{
-width:100%;
-text-align:center;
-}
-
-}
-/* SIDEBAR MOBILE */
-.sidebar-toggle{
-display:none;
-font-size:22px;
-cursor:pointer;
-color:white;
-}
-
-@media(max-width:768px){
-
-.sidebar-toggle{
-display:block;
-}
-
-.sidebar-wrapper{
-position:fixed;
+/* NEON GARIS BERJALAN */
+.title-job-pro::before{
+content:"";
+position:absolute;
 top:0;
-left:-260px;
-height:100%;
-z-index:999;
-background:#0b1a2a;
-transition:.3s;
-width:260px;
-}
-
-.sidebar-wrapper.active{
-left:0;
-}
-
-/* overlay gelap */
-.overlay{
-position:fixed;
-top:0;
-left:0;
+left:-100%;
 width:100%;
-height:100%;
-background:rgba(0,0,0,0.5);
-display:none;
-z-index:998;
+height:2px;
+background:linear-gradient(90deg,transparent,cyan,transparent);
+animation:lineMove 3s linear infinite;
 }
 
-.overlay.active{
-display:block;
+@keyframes lineMove{
+0%{left:-100%;}
+100%{left:100%;}
 }
 
+/* ICON PULSE */
+@keyframes pulse{
+0%{box-shadow:0 0 5px cyan;}
+50%{box-shadow:0 0 20px cyan,0 0 40px cyan;}
+100%{box-shadow:0 0 5px cyan;}
 }
 </style>
 </head>
 
 <body>
-
-<!-- NAVBAR -->
-<div class="navbar">
-<div class="menu-toggle" onclick="toggleMenu()">
-<i class="fas fa-bars"></i>
-</div>
-
-<div class="sidebar-toggle" onclick="toggleSidebar()">
-<i class="fas fa-bars"></i>
-</div>
-<div class="overlay" onclick="toggleSidebar()"></div>
-<div class="logo"><img src="https://i.postimg.cc/1tzGvTyf/web-logo-web-letter-web-letter-logo-design-initials-web-logo-linked-with-circle-and-uppercase-monogr.jpg" alt="logo"><span>𝐌𝐲𝐖𝐞𝐛𝐬𝐢𝐭𝐞</span></div>
-
-<div class="menu-wrapper">
-<div class="menu">
-<a onclick="showPage('home')">Home</a>
-<a onclick="showPage('aktivitas')">Aktivitas</a>
-<a onclick="showPage('history')">MyJob</a>
-<a onclick="showPage('walet')">E-Walet</a>
-<a onclick="showPage('web')">WEB-SITE</a>
-</div>
-</div>
-</div>
 
 <!-- MARQUEE -->
 <div class="marquee">
@@ -400,41 +247,65 @@ display:block;
 </span>
 </div>
 
-<div class="container">
-
-<div class="sidebar-wrapper">
-<div class="sidebar">
-
-<div class="card-neon" onclick="window.open('https://heriyandi9494-cloud.github.io/drlaser/')">DrLaser</div>
-
-<div class="card-neon" onclick="window.open('https://heriyandi9494-cloud.github.io/HITMATDUTHERI/')">Alkitab</div>
-
-<div class="card-neon" onclick="window.open('https://heriyandi9494-cloud.github.io/note/')">Pengeluaran</div>
-
-<div class="card-neon" onclick="window.open('https://heriyandi9494-cloud.github.io/graceresto/')">Penjualan</div>
-
-<div class="card-neon" onclick="window.open('https://omkstpetrusdanpaulusrasulsekonau-byte.github.io/mistake/')">Mistake</div>
-
-<div class="card-neon" onclick="window.open('https://heriyandi9494-cloud.github.io/Tracker-Konsumsi-Rokok-/')">Sin</div>
-
-<div class="card-neon" onclick="window.open('https://heriyandi9494-cloud.github.io/pasimpong/')">Tabungan</div>
-
-<div class="card-neon" onclick="window.open('https://www.neobux.com/m/l/?vl=F0432EC413122E73')">NEOBUX</div>
-
-</div>
-</div>
-
 <div class="content" id="content"></div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+
+<div class="nav-item active" onclick="setActive(this); showPage('home')">
+<i class="fas fa-home"></i>
+<span>Home</span>
+</div>
+
+<div class="nav-item" onclick="setActive(this); showPage('aktivitas')">
+<i class="fas fa-bolt"></i>
+<span>Aktivitas</span>
+</div>
+
+<div class="nav-item" onclick="setActive(this); showPage('history')">
+<i class="fas fa-briefcase"></i>
+<span>MyJob</span>
+</div>
+
+<div class="nav-item" onclick="setActive(this); showPage('walet')">
+<i class="fas fa-wallet"></i>
+<span>Wallet</span>
+</div>
+
+<div class="nav-item" onclick="setActive(this); showPage('web')">
+<i class="fas fa-globe"></i>
+<span>Web</span>
+</div>
 
 </div>
 
 <script>
+let sliderInterval;
+
+function startSlider(){
+clearInterval(sliderInterval);
+
+let index=0;
+let images=document.querySelectorAll(".slider img");
+
+if(images.length===0)return;
+
+images.forEach(img=>img.classList.remove("active"));
+images[0].classList.add("active");
+
+sliderInterval=setInterval(()=>{
+images[index].classList.remove("active");
+index=(index+1)%images.length;
+images[index].classList.add("active");
+},3000);
+}
+
 function showPage(page){
 let content=document.getElementById("content");
 
 if(page==="home"){
 content.innerHTML=`
-<div class="logo"><img src="https://i.postimg.cc/XNRHQwDH/png-transparent-white-house-logo-computer-icons-home-house-home-blue-angle-text-thumbnail.png" alt="logo"><span>Home</span></div>
+<h2 class="title-job-pro"><span class="icon-box"><i class="fas fa-house-user"></i></span><span class="text">Home</span></h2>
 
 <div class="slider">
 <img src="https://i.postimg.cc/SxgSTgf0/Screenshot-63.jpg" class="active">
@@ -449,101 +320,85 @@ content.innerHTML=`
 <img src="https://i.postimg.cc/fLJZ6SQr/Website-design.webp" class="active">
 </div>
 `;
-startSlider();
 }
 
 if(page==="aktivitas"){
 content.innerHTML=`
-<div class="logo"><img src="https://i.postimg.cc/FF65mdCy/Screenshot-66.jpg" alt="logo"><span>Aktivitas</span></div>
+<h2 class="title-job-pro"><span class="icon-box"><i class="fas fa-person-running"></i></span><span class="text">Aktivitas</span></h2>
 
 <div class="grid">
 <div class="card-neon" onclick="window.open('https://heriyandi9494-cloud.github.io/drlaser/')">DrLaser</div>
 <div class="card-neon" onclick="window.open('https://heriyandi9494-cloud.github.io/HITMATDUTHERI/')">Alkitab</div>
 <div class="card-neon" onclick="window.open('https://heriyandi9494-cloud.github.io/note/')">Pengeluaran</div>
 </div>
+
 <div class="slider">
 <img src="https://i.postimg.cc/DZhHsX8g/download.jpg">
 <img src="https://i.postimg.cc/dVt3t12Z/sddefault.jpg">
 <img src="https://i.postimg.cc/d3NZLtCR/halaman-20240620125629.png" class="active">
 </div>
 `;
-startSlider();
 }
 
 if(page==="history"){
 content.innerHTML=`
-<h2><i class="fas fa-user-tie"></i> 𝑀𝒴 𝒥𝒪𝐵 <i class=""></i></h2></div>
+<h2 class="title-job-pro"><span class="icon-box"><i class="fas fa-briefcase"></i></span><span class="text">MyJob</span></h2>
+
 <div class="grid">
 <div class="card-neon" onclick="window.open('https://heriyandi9494-cloud.github.io/graceresto/')">Penjualan</div>
 <div class="card-neon" onclick="window.open('https://omkstpetrusdanpaulusrasulsekonau-byte.github.io/mistake/')">Mistake</div>
 <div class="card-neon" onclick="window.open('https://heriyandi9494-cloud.github.io/Tracker-Konsumsi-Rokok-/')">Sin</div>
 </div>
+
 <div class="slider">
 <img src="https://i.postimg.cc/dV4BLLgf/Screenshot-65.jpg">
 <img src="https://i.postimg.cc/BnYTJR1V/How-to-answer-Tell-me-about-a-time-when-you-made-a-mistake-in-an-interview-with-confidence-and-cla.jpg">
 <img src="https://i.postimg.cc/pTxX4LL5/1af819a68e75bc0b977dc1cafc8e516b.jpg" class="active">
 </div>
 `;
-startSlider();
 }
 
 if(page==="walet"){
 content.innerHTML=`
-<h2><i class="fas fa-credit-card"></i> 𝐸-𝒲𝒜𝐿𝐸𝒯 <i class=""></i></h2></div>
+<h2 class="title-job-pro"><span class="icon-box"><i class="fas fa-credit-card"></i></span><span class="text">E-Walet</span></h2>
+
 <div class="grid">
 <div class="card-neon" onclick="window.open('https://heriyandi9494-cloud.github.io/pasimpong/')">Tabungan</div>
 </div>
+
 <div class="slider">
 <img src="https://i.postimg.cc/7LNyCMqf/maxresdefault.jpg">
 </div>
 `;
-startSlider();
 }
 
 if(page==="web"){
 content.innerHTML=`
-<h2><i class="fas fa-credit-card"></i> WEB-SITE <i class=""></i></h2></div>
+<h2 class="title-job-pro"><span class="icon-box"><i class="fas fa-globe"></i></span><span class="text">Web-Site</span></h2>
+
 <div class="grid">
 <div class="card-neon" onclick="window.open('https://sites.google.com/view/mudasarohani/page_2')">HDS</div>
 <div class="card-neon" onclick="window.open('https://omkstpetrusdanpaulusrasulsekonau-byte.github.io/landingpageomksekonau/')">OMK</div>
 </div>
+
 <div class="slider">
 <img src="https://i.postimg.cc/y84qvrd6/njuq-Y8b-VEAK48u-SGWi-Xx-Pi.jpg">
 <img src="https://i.postimg.cc/fLJZ6SQr/Website-design.webp" class="active">
 </div>
 `;
+}
+
 startSlider();
 }
-}
 
-function startSlider(){
-let index=0;
-let images=document.querySelectorAll(".slider img");
-
-setInterval(()=>{
-images.forEach(img=>img.classList.remove("active"));
-index=(index+1)%images.length;
-images[index].classList.add("active");
-},3000);
+function setActive(el){
+document.querySelectorAll(".nav-item").forEach(item=>{
+item.classList.remove("active");
+});
+el.classList.add("active");
 }
 
 showPage("home");
-
-function toggleMenu(){
-document.querySelector(".menu-wrapper").classList.toggle("active");
-}
-
-function toggleSidebar(){
-document.querySelector(".sidebar-wrapper").classList.toggle("active");
-document.querySelector(".overlay").classList.toggle("active");
-}
-
-document.querySelectorAll(".card-neon").forEach(btn=>{
-btn.addEventListener("click", ()=>{
-document.querySelector(".sidebar-wrapper").classList.remove("active");
-document.querySelector(".overlay").classList.remove("active");
-});
-});
 </script>
 
 </body>

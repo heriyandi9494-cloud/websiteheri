@@ -281,6 +281,88 @@ font-size:16px;
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
+/* TOGGLE MENU */
+.menu-toggle{
+display:none;
+font-size:22px;
+cursor:pointer;
+color:white;
+}
+
+/* MOBILE MENU */
+@media(max-width:768px){
+
+.menu-toggle{
+display:block;
+}
+
+.menu-wrapper{
+width:100%;
+display:none;
+}
+
+.menu-wrapper.active{
+display:block;
+animation:fadeIn .3s ease;
+}
+
+.menu{
+flex-direction:column;
+width:100%;
+}
+
+.menu a{
+width:100%;
+text-align:center;
+}
+
+}
+/* SIDEBAR MOBILE */
+.sidebar-toggle{
+display:none;
+font-size:22px;
+cursor:pointer;
+color:white;
+}
+
+@media(max-width:768px){
+
+.sidebar-toggle{
+display:block;
+}
+
+.sidebar-wrapper{
+position:fixed;
+top:0;
+left:-260px;
+height:100%;
+z-index:999;
+background:#0b1a2a;
+transition:.3s;
+width:260px;
+}
+
+.sidebar-wrapper.active{
+left:0;
+}
+
+/* overlay gelap */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+display:none;
+z-index:998;
+}
+
+.overlay.active{
+display:block;
+}
+
+}
 </style>
 </head>
 
@@ -288,6 +370,14 @@ font-size:16px;
 
 <!-- NAVBAR -->
 <div class="navbar">
+<div class="menu-toggle" onclick="toggleMenu()">
+<i class="fas fa-bars"></i>
+</div>
+
+<div class="sidebar-toggle" onclick="toggleSidebar()">
+<i class="fas fa-bars"></i>
+</div>
+<div class="overlay" onclick="toggleSidebar()"></div>
 <div class="logo"><img src="https://i.postimg.cc/1tzGvTyf/web-logo-web-letter-web-letter-logo-design-initials-web-logo-linked-with-circle-and-uppercase-monogr.jpg" alt="logo"><span>𝐌𝐲𝐖𝐞𝐛𝐬𝐢𝐭𝐞</span></div>
 
 <div class="menu-wrapper">
@@ -328,6 +418,8 @@ font-size:16px;
 <div class="card-neon" onclick="window.open('https://heriyandi9494-cloud.github.io/Tracker-Konsumsi-Rokok-/')">Sin</div>
 
 <div class="card-neon" onclick="window.open('https://heriyandi9494-cloud.github.io/pasimpong/')">Tabungan</div>
+
+<div class="card-neon" onclick="window.open('https://www.neobux.com/m/l/?vl=F0432EC413122E73')">NEOBUX</div>
 
 </div>
 </div>
@@ -436,6 +528,22 @@ images[index].classList.add("active");
 }
 
 showPage("home");
+
+function toggleMenu(){
+document.querySelector(".menu-wrapper").classList.toggle("active");
+}
+
+function toggleSidebar(){
+document.querySelector(".sidebar-wrapper").classList.toggle("active");
+document.querySelector(".overlay").classList.toggle("active");
+}
+
+document.querySelectorAll(".card-neon").forEach(btn=>{
+btn.addEventListener("click", ()=>{
+document.querySelector(".sidebar-wrapper").classList.remove("active");
+document.querySelector(".overlay").classList.remove("active");
+});
+});
 </script>
 
 </body>
